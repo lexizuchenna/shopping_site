@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
-
 import { AiFillStar } from "react-icons/ai";
 import { FaCartPlus, FaBolt } from "react-icons/fa";
 
-function ProductCard({ product, isHot, addToCart }) {
+import { useMainContext } from "@/context/MainContext";
+
+function ProductCard({ product, isHot }) {
+  const { handleAddCartItem } = useMainContext();
   return (
     <div
       className="d-flex"
@@ -51,7 +53,7 @@ function ProductCard({ product, isHot, addToCart }) {
           </div>
           <button
             className="product-to-cart"
-            onClick={() => addToCart(product)}
+            onClick={() => handleAddCartItem(product, 1)}
           >
             <FaCartPlus color="var(--bg-secondary)" size={18} />
           </button>

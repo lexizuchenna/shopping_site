@@ -1,77 +1,76 @@
 "use client";
 
-import ProductCard from "./ProductCard";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
-function HotSales() {
+import ProductCard from "@/components/ProductCard";
+
+function RootLayout({ children }) {
+  const params = useParams();
+
   const products = [
     {
       _id: "12345",
       images: ["/images/headphone.jpg"],
-      name: "headphone 1",
-      discount: true,
-      discountPrice: 40,
-      price: 120,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum veritatis libero dolore blanditiis incidunt soluta voluptatem exercitationem nobis dicta voluptatibus.",
-      "item-quantity": 20,
-      "user-quantity": 5,
-    },
-    {
-      _id: "1345",
-      images: ["/images/headphone.jpg"],
-      name: "headphone 2",
-      discount: true,
-      discountPrice: 40,
-      price: 120,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum veritatis libero dolore blanditiis incidunt soluta voluptatem exercitationem nobis dicta voluptatibus.",
-      "item-quantity": 20,
-      "user-quantity": 5,
-    },
-    {
-      _id: "1245",
-      images: ["/images/headphone.jpg"],
-      name: "headphone 3",
+      name: "headphone",
       discount: false,
       discountPrice: 40,
       price: 120,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum veritatis libero dolore blanditiis incidunt soluta voluptatem exercitationem nobis dicta voluptatibus.",
-      "item-quantity": 20,
-      "user-quantity": 5,
     },
     {
-      _id: "1235",
+      _id: "12345",
       images: ["/images/headphone.jpg"],
-      name: "headphone 4",
+      name: "headphone",
       discount: false,
       discountPrice: 40,
       price: 120,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum veritatis libero dolore blanditiis incidunt soluta voluptatem exercitationem nobis dicta voluptatibus.",
-      "item-quantity": 20,
-      "user-quantity": 5,
+    },
+    {
+      _id: "12345",
+      images: ["/images/headphone.jpg"],
+      name: "headphone",
+      discount: false,
+      discountPrice: 40,
+      price: 120,
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum veritatis libero dolore blanditiis incidunt soluta voluptatem exercitationem nobis dicta voluptatibus.",
+    },
+    {
+      _id: "12345",
+      images: ["/images/headphone.jpg"],
+      name: "headphone",
+      discount: false,
+      discountPrice: 40,
+      price: 120,
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum veritatis libero dolore blanditiis incidunt soluta voluptatem exercitationem nobis dicta voluptatibus.",
     },
   ];
 
-  const handleAddToCart = (product) => {
-    console.log(product);
-  };
   return (
-    <div style={{ margin: "0 18px" }}>
-      <div className="products-heading">
-        <h2>Best Offers</h2>
-        <p>Get your product at discounted rates and best offer</p>
-      </div>
+    <>
+      <div className="main-container">
+        <div className="products-heading">
+          <h2>Shop {params.category} </h2>
+          <div>{children}</div>
+        </div>
+        <div className="products-heading">
+          <h2>Related Products</h2>
+          <p>Get more products</p>
+        </div>
 
-      <div className="products-container">
-        {products.map((product, index) => (
-          <ProductCard
-            product={product}
-            key={index}
-            isHot={true}
-            addToCart={() => handleAddToCart(index)}
-          />
-        ))}
+        <div className="products-container">
+          {products.map((product, index) => (
+            <ProductCard
+              product={product}
+              key={index}
+              addToCart={() => handleAddToCart(index)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default HotSales;
+export default RootLayout;

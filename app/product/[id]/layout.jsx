@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
-
 import ProductCard from "@/components/ProductCard";
 
-function RootLayout({ children }) {
+function layout({ children }) {
   const products = [
     {
       _id: "12345",
@@ -45,9 +43,9 @@ function RootLayout({ children }) {
   ];
 
   return (
-    <>
+    <div className="main-container">
       <div>{children}</div>
-      <div style={{ margin: "0 18px" }}>
+      <div>
         <div className="products-heading">
           <h2>Related Products</h2>
           <p>Get more products</p>
@@ -63,8 +61,8 @@ function RootLayout({ children }) {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default RootLayout;
+export default layout;

@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,7 +6,7 @@ import { FaTwitter, FaInstagram, FaFacebook } from "react-icons/fa";
 function Footer() {
   return (
     <div className="footer-wrapper">
-      <footer className="d-flex main-container">
+      <footer className="d-flex">
         <ul>
           <li className="footer-heading">Customer Service</li>
           <li className="footer-item">

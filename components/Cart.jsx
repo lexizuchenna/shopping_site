@@ -1,45 +1,28 @@
 "use client";
 
-import { useRef } from "react";
-import Link from "next/link";
-import {
-  AiOutlineMinus,
-  AiOutlinePlus,
-  AiOutlineLeft,
-  AiOutlineShopping,
-} from "react-icons/ai";
-import { TiDeleteOutline } from "react-icons/ti";
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { AiOutlineLeft, AiOutlineShopping } from "react-icons/ai";
+
 import toast from "react-hot-toast";
 
-// import { useStateContext } from "../context/StateContext";
+import { useMainContext } from "@/context/MainContext";
 
-const Cart = () => {
+import CartCard from "./CartCard";
+
+const Cart = ({ setShowCart }) => {
   const cartRef = useRef();
-  //   const {} = useStateContext();
+  const router = useRouter();
 
-  const [
-    totalPrice,
-    totalQuantities,
-    cartItems,
-    setShowCart,
-    toggleCartItemQuanitity,
-    onRemove,
-  ] = [100, 1, [], false, () => {}, () => {}];
+  const { totalAmount, cartItems } = useMainContext();
 
-  const handleCheckout = async () => {
-    const response = await fetch("/api/stripe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(cartItems),
+  const handleCheckout = () => {
+    setShowCart(false);
+    router.push(`/checkout?product_type=checkout-items`);
+
+    toast.loading("Redirecting...", {
+      duration: 2000,
     });
-
-    if (response.statusCode === 500) return;
-
-    const data = await response.json();
-
-    toast.loading("Redirecting...");
   };
 
   return (
@@ -52,83 +35,53 @@ const Cart = () => {
         >
           <AiOutlineLeft />
           <span className="heading">Your Cart</span>
-          <span className="cart-num-items">({totalQuantities} items)</span>
+          <span className="cart-num-items">
+            ({cartItems.length} {cartItems.length > 1 ? "items" : "item"})
+          </span>
         </button>
 
         {cartItems.length < 1 && (
           <div className="empty-cart">
             <AiOutlineShopping size={150} />
             <h3>Your shopping bag is empty</h3>
-            <Link href="/">
-              <button
-                type="button"
-                onClick={() => setShowCart(false)}
-                className="btn"
-              >
-                Continue Shopping
-              </button>
-            </Link>
+
+            <button
+              type="button"
+              onClick={() => setShowCart(false)}
+              className="btn"
+            >
+              Continue Shopping
+            </button>
           </div>
         )}
 
-        <div className="product-container">
+        <div
+          className="cart-product-container"
+          style={{
+            margin: "8px 0 25px 0",
+            overflow: "auto",
+            maxHeight: "70vh",
+            padding: "20px 10px",
+          }}
+        >
           {cartItems.length >= 1 &&
-            cartItems.map((item) => (
-              <div className="product" key={item._id}>
-                <img
-                  src={urlFor(item?.image[0])}
-                  className="cart-product-image"
-                />
-                <div className="item-desc">
-                  <div className="flex top">
-                    <h5>{item.name}</h5>
-                    <h4>${item.price}</h4>
-                  </div>
-                  <div className="flex bottom">
-                    <div>
-                      <p className="quantity-desc">
-                        <span
-                          className="minus"
-                          onClick={() =>
-                            toggleCartItemQuanitity(item._id, "dec")
-                          }
-                        >
-                          <AiOutlineMinus />
-                        </span>
-                        <span className="num" onClick="">
-                          {item.quantity}
-                        </span>
-                        <span
-                          className="plus"
-                          onClick={() =>
-                            toggleCartItemQuanitity(item._id, "inc")
-                          }
-                        >
-                          <AiOutlinePlus />
-                        </span>
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      className="remove-item"
-                      onClick={() => onRemove(item)}
-                    >
-                      <TiDeleteOutline />
-                    </button>
-                  </div>
-                </div>
-              </div>
+            cartItems.map((item, index) => (
+              <CartCard item={item} key={index} />
             ))}
         </div>
         {cartItems.length >= 1 && (
           <div className="cart-bottom">
             <div className="total">
               <h3>Subtotal:</h3>
-              <h3>${totalPrice}</h3>
+              <h3>${totalAmount}</h3>
             </div>
             <div className="btn-container">
-              <button type="button" className="btn" onClick={handleCheckout}>
-                Pay with Stripe
+              <button
+                type="button"
+                className="btn checkout-btn"
+                onClick={handleCheckout}
+              >
+                Proceed to Checkout
               </button>
             </div>
           </div>

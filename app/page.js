@@ -6,6 +6,7 @@ import Banner from "@/components/Banner";
 
 export default function Home() {
   return (
+    // <MainContext>
     <>
       <div className="main-container">
         <div className="container">
@@ -15,5 +16,6 @@ export default function Home() {
         </div>
       </div>
     </>
+    // {/* </MainContext> */}
   );
 }
