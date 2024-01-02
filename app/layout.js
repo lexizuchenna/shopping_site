@@ -1,5 +1,6 @@
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+import Loader from "@/components/Loader";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,7 +9,10 @@ import { MainContext } from "@/context/MainContext";
 
 import "../styles/style.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata = {
   title: "Spree Commcerce",
@@ -17,11 +21,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" style={{ fontFamily: "Poppins" }}>
+      <body className={poppins.className} style={{ fontFamily: "Poppins" }}>
         <MainContext>
           <Header />
           <Toaster />
+          {/* <Loader /> */}
           {children}
           <Footer />
         </MainContext>

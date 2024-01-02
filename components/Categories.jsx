@@ -48,6 +48,7 @@ function Categories() {
           onNavigationNext={() => {
             console.log("Next");
           }}
+          breakpoints={{ 400: { slidesPerView: 2 } }}
         >
           {categories.map((category, index) => (
             <SwiperSlide key={index}>

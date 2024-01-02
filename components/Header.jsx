@@ -12,33 +12,34 @@ import {
 } from "react-icons/fa";
 
 import Cart from "./Cart";
+import Menu from "./Menu";
 
 import { useMainContext } from "@/context/MainContext";
 
 function Header() {
   const [showCart, setShowCart] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const totalQuantities = 0;
-  const { cartItems } = useMainContext();
+  const { cartItems, isLogin } = useMainContext();
+
   return (
-    <header className="">
+    <header>
       <nav>
         <div className="top-bar d-flex">
           <div className="left-links">
             <ul className="d-flex">
-              <li>
-                <Link href="/seller/signin">Seller</Link>
+              <li className="d-desktop">
+                <Link href="/">Seller</Link>
               </li>
               <li>
                 <Link href="/seller/signin">Download App</Link>
               </li>
-              <li>Follow us on</li>
-              <li className="social-icon d-flex">
+              <li className="d-desktop">Follow us on</li>
+              <li className="social-icon d-flex d-desktop">
                 <Link href="/">
                   <FaInstagram color="var(--bg-primary)" />
                 </Link>
               </li>
-              <li className="social-icon d-flex">
+              <li className="social-icon d-flex d-desktop">
                 <Link href="/">
                   <FaTwitter color="var(--bg-primary)" />
                 </Link>
@@ -52,25 +53,39 @@ function Header() {
                   <FaBell color="var(--bg-primary)" />
                 </button>
               </li>
-              <li>
-                <Link href="/">SIGNUP</Link>
-              </li>
-              <li>
-                <Link href="/">LOGIN</Link>
-              </li>
+              {isLogin ? (
+                <li style={{ marginRight: "0" }}>
+                  <button
+                    className="social-icon"
+                    style={{ border: "none" }}
+                    onClick={() => setShowMenu((prev) => !prev)}
+                  >
+                    <FaUser color="var(--bg-primary)" />
+                  </button>
+                </li>
+              ) : (
+                <>
+                  <li>
+                    <Link href="/authentication/register">SIGNUP</Link>
+                  </li>
+                  <li style={{ marginRight: "0" }}>
+                    <Link href="/authentication/login">LOGIN</Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
         <div className="navbar-container d-flex">
-          <p className="logo">
+          <p className="logo d-desktop">
             <Link href="/">Spree Store</Link>
           </p>
 
           <div className="right-nav d-flex">
-            <div className="search-bar">
+            <div className="search-bar d-flex">
               <input type="text" name="search" placeholder="Search Spree" />
-              <button>
-                <FaSearch color="#fff" />
+              <button className="d-flex">
+                <FaSearch color="#fff" size={16} />
               </button>
             </div>
             <div>
@@ -78,22 +93,14 @@ function Header() {
                 type="button"
                 className="cart-icon"
                 onClick={() => setShowCart(true)}
-                style={{ marginRight: "30px" }}
               >
                 <FaShoppingCart color="var(--bg-primary)" size={18} />
                 <span className="cart-item-qty">{cartItems.length}</span>
               </button>
-              <button
-                type="button"
-                className="cart-icon"
-                onClick={() => setShowMenu((prev) => !prev)}
-              >
-                <FaUser color="var(--bg-primary)" size={17} />
-              </button>
             </div>
           </div>
 
-          {showMenu && (
+          {/* {showMenu && (
             <div className="user-menu">
               <ul>
                 <li>
@@ -107,9 +114,10 @@ function Header() {
                 </li>
               </ul>
             </div>
-          )}
+          )} */}
 
           {showCart && <Cart setShowCart={setShowCart} />}
+          {showMenu && <Menu setShowMenu={setShowMenu} />}
         </div>
       </nav>
     </header>

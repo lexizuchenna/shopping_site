@@ -7,8 +7,6 @@ import ProductCard from "@/components/ProductCard";
 import { useMainContext } from "@/context/MainContext";
 function page() {
   const { cartItems } = useMainContext();
-  console.log(cartItems);
-  const handleAddToCart = () => {};
   const products = [
     {
       _id: "12345",
@@ -50,11 +48,7 @@ function page() {
   return (
     <div className="products-container">
       {products.map((product, index) => (
-        <ProductCard
-          product={product}
-          key={index}
-          addToCart={() => handleAddToCart(product)}
-        />
+        <ProductCard product={product} key={index} />
       ))}
     </div>
   );

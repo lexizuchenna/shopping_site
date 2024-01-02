@@ -6,16 +6,12 @@ import Banner from "@/components/Banner";
 
 export default function Home() {
   return (
-    // <MainContext>
-    <>
-      <div className="main-container">
-        <div className="container">
-          <Banner />
-          <HotSales />
-          <Categories />
-        </div>
+    <div className="main-container">
+      <div className="container">
+        <Banner />
+        <HotSales />
+        <Categories />
       </div>
-    </>
-    // {/* </MainContext> */}
+    </div>
   );
 }

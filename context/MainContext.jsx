@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Context = createContext();
 
@@ -9,6 +10,8 @@ export const MainContext = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [checkoutItems, setCheckoutItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [user, setUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
     let total = 0;
@@ -25,6 +28,19 @@ export const MainContext = ({ children }) => {
 
     setTotalAmount(() => total);
   }, [checkoutItems]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await axios.get("/api/authentication/get-token");
+
+      if (data.user) {
+        setUser(() => data.user);
+        setIsLogin(() => true);
+      }
+    };
+
+    getUser();
+  }, []);
 
   const handleAddCartItem = (item, quantity) => {
     const cartIndex = cartItems.findIndex(
@@ -68,7 +84,7 @@ export const MainContext = ({ children }) => {
       } else {
         const newCheckItems = checkoutItems;
         newCheckItems[checkoutIndex].quantity =
-          newCheckItems[checkoutIndex].quantity + 1;
+          newCheckItems[checkoutIndex].quantity;
 
         setCheckoutItems(() => [...newCheckItems]);
       }
@@ -140,6 +156,13 @@ export const MainContext = ({ children }) => {
     }
   };
 
+  const handleLogin = (type, user) => {
+    if (!type || !user) return null;
+
+    setUser(() => user);
+    setIsLogin(() => type);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -153,6 +176,10 @@ export const MainContext = ({ children }) => {
         totalAmount,
         setTotalAmount,
         handleCartItemQty,
+        user,
+        setUser,
+        handleLogin,
+        isLogin,
       }}
     >
       {children}
