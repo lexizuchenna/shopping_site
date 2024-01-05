@@ -11,8 +11,8 @@ export const POST = async (req, res) => {
 
   const user = await User.findOne({
     $or: [
-      { username: body.login.trim() },
-      { email: body.login.toLowerCase().trim() },
+      { username: body.login.trim().toLowerCase() },
+      { email: body.login.toLowerCase().trim().toLowerCase() },
       { phonenumber: body.login.toLowerCase().trim() },
     ],
   }).select("-_id -type -createdAt -updatedAt -__v");

@@ -1,8 +1,7 @@
 "use client";
 
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { FaArrowRight } from "react-icons/fa";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -21,8 +20,6 @@ function Categories() {
     { name: "women's clothing", id: 1, image: "/images/headphone.jpg" },
   ];
 
-  const swiper = useSwiper();
-
   // const nextEl = () => {
   //   cons
   //   return (
@@ -31,6 +28,24 @@ function Categories() {
   //     </div>
   //   );
   // };
+
+  const breakPoints = {
+    300: {
+      slidesPerView: 2,
+      navigation: {
+        enabled: false,
+      },
+    },
+    600: {
+      slidesPerView: 3,
+    },
+    800: {
+      slidesPerView: 5,
+    },
+    1200: {
+      slidesPerView: 6,
+    },
+  };
   return (
     <div style={{ margin: "0 18px" }}>
       <div className="products-heading">
@@ -39,16 +54,13 @@ function Categories() {
       </div>
       <div className="products-container">
         <Swiper
-          spaceBetween={50}
+          spaceBetween={-10}
           slidesPerView={5}
           onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
           modules={[Navigation, Pagination]}
           navigation
-          onNavigationNext={() => {
-            console.log("Next");
-          }}
-          breakpoints={{ 400: { slidesPerView: 2 } }}
+          pagination={{ type: "bullets" }}
+          breakpoints={breakPoints}
         >
           {categories.map((category, index) => (
             <SwiperSlide key={index}>

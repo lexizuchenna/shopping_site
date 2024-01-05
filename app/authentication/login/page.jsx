@@ -11,7 +11,7 @@ import Eye from "@/components/icons/Eye";
 import ClosedEye from "@/components/icons/ClosedEye";
 
 function page() {
-  const { handleLogin } = useMainContext();
+  const { handleLogin, setIsLoading } = useMainContext();
   const router = useRouter();
   const query = useSearchParams();
 
@@ -28,6 +28,7 @@ function page() {
 
     try {
       toast.loading("Loading...", { id: "load" });
+      setIsLoading(true);
       const { data } = await axios.post("/api/authentication/login", formData);
 
       if (data) {
@@ -45,6 +46,8 @@ function page() {
       toast.remove("load");
       console.log(error);
       toast.error(error.response.data, { duration: 3000 });
+    } finally {
+      setIsLoading(false);
     }
   };
 

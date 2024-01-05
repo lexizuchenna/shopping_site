@@ -24,13 +24,16 @@ export const POST = async (req) => {
 
     await DBConnect();
 
-    const user = await User.findOne({ email: body.email, role: "buyer" });
+    const user = await User.findOne({
+      email: body.email.toLowerCase().trim(),
+      role: "buyer",
+    });
 
     if (user)
       return new Response(JSON.stringify("Email used"), { status: 400 });
 
     const phone = await User.findOne({
-      phonenumber: body.phonenumber,
+      phonenumber: body.phonenumber.trim(),
       role: "buyer",
     });
 
@@ -50,14 +53,14 @@ export const POST = async (req) => {
     };
 
     const getUsername = async () => {
-      let username = `${body.firstname}${body.lastname.slice(
+      let username = `${body.firstname.trim()}${body.lastname.slice(
         0,
         1
       )}`.toLowerCase();
       let user = await User.findOne({ username });
 
       while (user) {
-        username = `${body.firstname.toLowerCase()}${body.lastname
+        username = `${body.firstname.toLowerCase().trim()}${body.lastname
           .toLowerCase()
           .slice(0, 1)}${generateNum(4)}`;
         user = await User.findOne({ username });
@@ -71,6 +74,8 @@ export const POST = async (req) => {
 
     await User.create({
       ...body,
+      email: body.email.toLowerCase().trim(),
+      phonenumber: body.phonenumber.trim(),
       role: "buyer",
       type: "local",
       uid: await getUid(),

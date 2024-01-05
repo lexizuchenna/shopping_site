@@ -112,9 +112,9 @@ function page() {
               </Link>{" "}
             </p>
           </div>
-          <div className="summary-footer">
+          {/* <div className="summary-footer">
             <p>Spree keeps your information and payment safe</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

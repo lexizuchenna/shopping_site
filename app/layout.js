@@ -25,10 +25,10 @@ export default function RootLayout({ children }) {
       <body className={poppins.className} style={{ fontFamily: "Poppins" }}>
         <MainContext>
           <Header />
-          <Toaster />
-          {/* <Loader /> */}
+          <Loader />
           {children}
           <Footer />
+          <Toaster />
         </MainContext>
       </body>
     </html>

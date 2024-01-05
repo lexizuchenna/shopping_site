@@ -12,6 +12,7 @@ export const MainContext = ({ children }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     let total = 0;
@@ -31,11 +32,17 @@ export const MainContext = ({ children }) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await axios.get("/api/authentication/get-token");
-
-      if (data.user) {
-        setUser(() => data.user);
-        setIsLogin(() => true);
+      setIsLoading(true);
+      try {
+        const { data } = await axios.get("/api/authentication/get-token");
+        if (data.user) {
+          setUser(() => data.user);
+          setIsLogin(() => true);
+        }
+      } catch (error) {
+        toast.error(error.response.data);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -180,6 +187,8 @@ export const MainContext = ({ children }) => {
         setUser,
         handleLogin,
         isLogin,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}

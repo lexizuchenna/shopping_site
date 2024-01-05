@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMainContext } from "@/context/MainContext";
 
 function Loader() {
-  const [loaded, setLoaded] = useState(false);
-
-  // useEffect(() => {
-  //   document.body.style.overflow = "hidden";
-  // }, []);
+  const { isLoading } = useMainContext();
 
   return (
-    <div className="loader-container">
-      <div className="loader"></div>
-    </div>
+    <>
+      {isLoading && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
+    </>
   );
 }
 
