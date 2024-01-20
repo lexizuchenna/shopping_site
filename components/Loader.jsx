@@ -1,6 +1,6 @@
 "use client";
 
-import { useMainContext } from "@/context/MainContext";
+import { useMainContext } from "@/context/Context";
 
 function Loader() {
   const { isLoading } = useMainContext();

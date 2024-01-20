@@ -4,6 +4,8 @@ const UserSchema = new Schema(
   {
     role: {
       type: String,
+      enum: ["admin", "seller", "buyer"],
+      default: "buyer",
       required: true,
     },
     uid: {

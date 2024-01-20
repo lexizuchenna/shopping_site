@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   FaTwitter,
   FaInstagram,
@@ -14,7 +15,7 @@ import {
 import Cart from "./Cart";
 import Menu from "./Menu";
 
-import { useMainContext } from "@/context/MainContext";
+import { useMainContext } from "@/context/Context";
 
 function Header() {
   const [showCart, setShowCart] = useState(false);
@@ -48,11 +49,12 @@ function Header() {
           </div>
           <div className="right-links">
             <ul>
-              <li>
-                <button className="social-icon" style={{ border: "none" }}>
+              <li className="social-icon" style={{ paddingLeft: "5px" }}>
+                <Link href="/account/notifications">
                   <FaBell color="var(--bg-primary)" />
-                </button>
+                </Link>
               </li>
+
               {isLogin ? (
                 <li style={{ marginRight: "0" }}>
                   <button
@@ -77,9 +79,12 @@ function Header() {
           </div>
         </div>
         <div className="navbar-container d-flex">
-          <p className="logo d-desktop">
-            <Link href="/">Spree Store</Link>
-          </p>
+          <div className="logo">
+            <Link href="/">
+              <Image src="/spree_logoiii.png" width={35} height={35} />
+              <span className="d-desktop">Spree Store</span>
+            </Link>
+          </div>
 
           <div className="right-nav d-flex">
             <div className="search-bar d-flex">
@@ -99,23 +104,6 @@ function Header() {
               </button>
             </div>
           </div>
-
-          {/* {showMenu && (
-            <div className="user-menu">
-              <ul>
-                <li>
-                  <Link href="/accounts">My Account</Link>
-                </li>
-                <li>
-                  <Link href="/orders">My Orders</Link>
-                </li>
-                <li>
-                  <Link href="/logout">Logout</Link>
-                </li>
-              </ul>
-            </div>
-          )} */}
-
           {showCart && <Cart setShowCart={setShowCart} />}
           {showMenu && <Menu setShowMenu={setShowMenu} />}
         </div>

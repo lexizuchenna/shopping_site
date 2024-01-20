@@ -2,7 +2,7 @@ import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { FaTrash, FaCheckCircle, FaCircle } from "react-icons/fa";
 
-import { useMainContext } from "@/context/MainContext";
+import { useMainContext } from "@/context/Context";
 
 function CartCard({ item }) {
   const {
@@ -12,14 +12,10 @@ function CartCard({ item }) {
     handleCartItemQty,
   } = useMainContext();
   return (
-    <div className="product" key={item._id}>
-      <Image
-        src={item.images[0]}
-        className="cart-product-image"
-        width={70}
-        height={70}
-        alt={item.name}
-      />
+    <div className="product">
+      <div className="cart-product-image">
+        <Image src={item.images[0]} width={70} height={70} alt={item.name} />
+      </div>
       <div className="item-desc">
         <div className="flex top">
           <h5>{item.name}</h5>
@@ -36,7 +32,7 @@ function CartCard({ item }) {
               className="remove-item"
               style={{ marginLeft: "15px" }}
             >
-              {checkoutItems.find((product) => product._id === item._id) ? (
+              {checkoutItems.find((product) => product.pid === item.pid) ? (
                 <FaCheckCircle
                   onClick={(e) => handleSelectCheckoutItem(e, item, "remove")}
                 />

@@ -5,7 +5,7 @@ import Loader from "@/components/Loader";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-import { MainContext } from "@/context/MainContext";
+import { MainContext } from "@/context/Context";
 
 import "../styles/style.css";
 

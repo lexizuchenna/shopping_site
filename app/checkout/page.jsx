@@ -2,41 +2,17 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+
 import CheckoutCard from "@/components/CheckoutCard";
+
+import { useMainContext } from "@/context/Context";
 
 function page() {
   const query = useSearchParams();
+  const { checkoutItems } = useMainContext();
 
   const productType = query.get("product_type");
   const product = query.get("product");
-
-  console.log(productType, product);
-
-  const checkoutItems = [
-    {
-      _id: "12345",
-      images: ["/images/headphone.jpg"],
-      name: "headphone 1",
-      discount: true,
-      discountPrice: 40,
-      price: 120,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum veritatis libero dolore blanditiis incidunt soluta voluptatem exercitationem nobis dicta voluptatibus.",
-      "item-quantity": 20,
-      "user-quantity": 5,
-      quantity: 2,
-    },
-    {
-      _id: "1345",
-      images: ["/images/headphone.jpg"],
-      name: "headphone 2",
-      discount: true,
-      discountPrice: 40,
-      price: 120,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum veritatis libero dolore blanditiis incidunt soluta voluptatem exercitationem nobis dicta voluptatibus.",
-      "item-quantity": 20,
-      "user-quantity": 5,
-    },
-  ];
 
   return (
     <div className="main-container">
@@ -74,12 +50,18 @@ function page() {
             </div>
           </div>
           <div className="checkout-products">
-            <div className="products-heading">
-              <p className="title">Products</p>
-            </div>
-            {checkoutItems.map((product, i) => (
-              <CheckoutCard item={product} key={i} />
-            ))}
+            {productType === "checkout-items" ? (
+              <>
+                <div className="products-heading">
+                  <p className="title">Products</p>
+                </div>
+                {checkoutItems.map((product, i) => (
+                  <CheckoutCard item={product} key={i} />
+                ))}
+              </>
+            ) : (
+              <CheckoutCard item={product} />
+            )}
           </div>
         </div>
         <div className="checkout-summary">
@@ -89,7 +71,7 @@ function page() {
             </div>
             <div className="d-flex">
               <p className="total-title">Total item costs</p>
-              <p className="total-digit">NGN 200000.00</p>
+              <p className="total-digit">NGN {}</p>
             </div>
             <div className="d-flex">
               <p className="total-title">Total shipping costs</p>

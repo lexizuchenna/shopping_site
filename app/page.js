@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+// import styles from "../styles/Home.module.css";
 
 import HotSales from "@/components/HotSales";
 import Categories from "@/components/Categories";

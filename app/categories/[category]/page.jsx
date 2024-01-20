@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 import ProductCard from "@/components/ProductCard";
 
-import { useMainContext } from "@/context/MainContext";
+import { useMainContext } from "@/context/Context";
 function page() {
   const { cartItems } = useMainContext();
   const products = [

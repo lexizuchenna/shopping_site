@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { useMainContext } from "@/context/MainContext";
+import { useMainContext } from "@/context/Context";
 import Eye from "@/components/icons/Eye";
 import ClosedEye from "@/components/icons/ClosedEye";
 

@@ -1,15 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import {
-  AiOutlineMinus,
-  AiOutlinePlus,
-  AiFillStar,
-  AiOutlineStar,
-} from "react-icons/ai";
+import { AiOutlineMinus, AiOutlinePlus, AiFillStar } from "react-icons/ai";
+import Rating from "react-rating";
 import { FaCartPlus } from "react-icons/fa";
 
-import { useMainContext } from "@/context/MainContext";
+import { useMainContext } from "@/context/Context";
+import { calcRating, calcAveRating } from "@/utils";
 
 function page() {
   const [quantity, setQuantity] = useState(1);
@@ -18,19 +15,21 @@ function page() {
   const { handleAddCartItem } = useMainContext();
 
   const product = {
-    _id: "12345",
-    images: [
-      "/images/headphone.jpg",
-      "/images/headphone1.jpg",
-      "/images/headphone2.jpg",
-      "/images/headphone3.jpg",
-    ],
-    name: "headphone",
-    discount: true,
+    uid: "123450000",
+    pid: "12350937",
+    images: ["/images/scrub.jpg", "/images/coconut.jpg"],
+    name: "face scrub",
+    discount: false,
     discountPrice: 40,
-    price: 120,
+    price: 170,
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum veritatis libero dolore blanditiis incidunt soluta voluptatem exercitationem nobis dicta voluptatibus.",
-    quantity: 10,
+    "store-name": "New mordern store",
+    "item-quantity": 20,
+    "user-quantity": 5,
+    ratings: [
+      { uid: "1289764386783", rating: 5 },
+      { uid: "1289764386783", rating: 2 },
+    ],
   };
 
   const incQty = () => {
@@ -72,14 +71,13 @@ function page() {
       <div className="product-detail-desc">
         <h1>{product.name}</h1>
         <div className="reviews">
-          <div>
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiOutlineStar />
-          </div>
-          <p>(20)</p>
+          <Rating
+            initialRating={calcAveRating(product)}
+            emptySymbol={<AiFillStar size={17} color="#aaa" />}
+            fullSymbol={<AiFillStar size={17} color="#ee4d2d" />}
+            readonly
+          />
+          <p>({calcRating(product)})</p>
         </div>
         <h4>Details: </h4>
         <p>{product.desc}</p>
@@ -115,7 +113,7 @@ function page() {
             style={{ justifyContent: "center" }}
             onClick={() => handleAddCartItem(product, quantity)}
           >
-            Add to Cart
+            <span className="d-desktop">Add to Cart</span>
             <FaCartPlus
               color="var(--bg-secondary)"
               size={18}

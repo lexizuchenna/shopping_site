@@ -6,7 +6,7 @@ import { AiOutlineLeft, AiOutlineShopping } from "react-icons/ai";
 
 import toast from "react-hot-toast";
 
-import { useMainContext } from "@/context/MainContext";
+import { useMainContext } from "@/context/Context";
 
 import CartCard from "./CartCard";
 
@@ -55,15 +55,7 @@ const Cart = ({ setShowCart }) => {
           </div>
         )}
 
-        <div
-          className="cart-product-container"
-          style={{
-            margin: "8px 0 25px 0",
-            overflow: "auto",
-            maxHeight: "70vh",
-            padding: "20px 10px",
-          }}
-        >
+        <div className="cart-product-container">
           {cartItems.length >= 1 &&
             cartItems.map((item, index) => (
               <CartCard item={item} key={index} />

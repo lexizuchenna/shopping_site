@@ -2,16 +2,25 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import Rating from "react-rating";
 import { AiFillStar } from "react-icons/ai";
 import { FaCartPlus, FaBolt } from "react-icons/fa";
 
-import { useMainContext } from "@/context/MainContext";
+import { useMainContext } from "@/context/Context";
+import { calcAveRating } from "@/utils";
 
 function ProductCard({ product, isHot }) {
   const { handleAddCartItem } = useMainContext();
   return (
     <div className="d-flex product-main">
       <div className="product-wrapper ">
+        {product["item-quantity"] <= 0 && (
+          <div className="out-of-stock d-flex">
+            <div className="out-of-stock-text">
+              <p>Out of stock</p>
+            </div>
+          </div>
+        )}
         {isHot && (
           <div className="hot-sale d-flex">
             <FaBolt color="#fff" size={10} />
@@ -19,7 +28,7 @@ function ProductCard({ product, isHot }) {
         )}
         <div className="product-card-image">
           <Link
-            href={`/product/${product._id}`}
+            href={`/product/${product.pid}`}
             className="products-link-wrapper"
           >
             <Image
@@ -55,11 +64,12 @@ function ProductCard({ product, isHot }) {
             <p className="product-name">{product?.name}</p>
           </div>
           <div className="d-flex" style={{ alignItems: "flex-end" }}>
-            <div className="rating d-flex">
-              {[4, 4, 4, 4, 5].map((star, i) => (
-                <AiFillStar size={17} color="orange" key={i} />
-              ))}
-            </div>
+            <Rating
+              initialRating={calcAveRating(product)}
+              emptySymbol={<AiFillStar size={17} color="#aaa" />}
+              fullSymbol={<AiFillStar size={17} color="#ee4d2d" />}
+              readonly
+            />
           </div>
         </div>
       </div>

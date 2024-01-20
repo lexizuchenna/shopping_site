@@ -2,7 +2,7 @@ import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { FaTrash, FaCheckCircle, FaCircle } from "react-icons/fa";
 
-import { useMainContext } from "@/context/MainContext";
+import { useMainContext } from "@/context/Context";
 
 function CheckoutCard({ item }) {
   const {

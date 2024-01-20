@@ -1,3 +1,5 @@
+// import Product from "@/models/Product";
+
 export const generateNum = (length = 6) => {
   var result = "";
   var characters = "0123456789";
@@ -81,4 +83,42 @@ export const phoneFormat = (field) => {
 
     return input.replace(/[-]/g, "");
   }
+};
+
+export const calcAveRating = (product) => {
+  // console.log(product.ratings.length);
+
+  if (product.ratings.length > 0) {
+    const total = product.ratings.reduce(
+      (sum, rating) => sum + rating.rating,
+      0
+    );
+    return total / product.ratings.length;
+  }
+
+  return 0;
+};
+
+export const calcRating = (product) => {
+  if (product.ratings.length > 0) {
+    const total = product.ratings.reduce(
+      (sum, rating) => sum + rating.rating,
+      0
+    );
+
+    return total;
+  }
+
+  return 0;
+};
+
+export const maskEmail = (email) => {
+  const atIndex = email.indexOf("@");
+
+  if (atIndex > 1) {
+    const maskedPart = "*".repeat(atIndex - 5);
+    return email.substring(0, 3) + maskedPart + email.substring(atIndex - 2);
+  }
+
+  return email;
 };

@@ -6,12 +6,12 @@ import { FaSignOutAlt, FaUser } from "react-icons/fa";
 import { AiOutlineLogout } from "react-icons/ai";
 import Link from "next/link";
 
-import { useMainContext } from "@/context/MainContext";
+import { useMainContext } from "@/context/Context";
 
 const Menu = ({ setShowMenu }) => {
   const menuRef = useRef();
 
-  const { user } = useMainContext();
+  const { user, handleLogout } = useMainContext();
 
   return (
     <div className="cart-wrapper" ref={menuRef}>
@@ -35,39 +35,46 @@ const Menu = ({ setShowMenu }) => {
           }}
         >
           <ul className="menu-list">
-            <li>
+            <li onClick={() => setShowMenu(false)}>
               <div className="menu-icon">
                 <FaUser />
               </div>
-              <Link href="/accounts/profile">Profile</Link>
+              <Link href="/account/profile">Profile</Link>
             </li>
-            <li>
+            <li onClick={() => setShowMenu(false)}>
               <div className="menu-icon">
                 <FaSignOutAlt />
               </div>
-              <Link href="/accounts/profile">Profile</Link>
+              <Link href="/account/profile">Profile</Link>
             </li>
-            <li>
+            <li onClick={() => setShowMenu(false)}>
               <div className="menu-icon">
                 <FaSignOutAlt />
               </div>
-              <Link href="/accounts/profile">Profile</Link>
+              <Link href="/account/profile">Profile</Link>
             </li>
-            <li>
+            <li onClick={() => setShowMenu(false)}>
               <div className="menu-icon">
                 <AiOutlineLogout />
               </div>
-              <Link href="/accounts/profile">Logout</Link>
+              <button
+                onClick={() => {
+                  setShowMenu(false);
+                  handleLogout();
+                }}
+              >
+                Logout
+              </button>
             </li>
           </ul>
         </div>
         <div className="cart-bottom menu-footer">
           <ul className="menu-list">
-            <li>
+            <li onClick={() => setShowMenu(false)}>
               <div className="menu-icon">
                 <AiOutlineLogout />
               </div>
-              <Link href="/accounts/profile">Logout</Link>
+              <Link href="/account/profile">Logout</Link>
             </li>
           </ul>
         </div>
