@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import CheckoutCard from "@/components/CheckoutCard";
@@ -8,11 +9,30 @@ import CheckoutCard from "@/components/CheckoutCard";
 import { useMainContext } from "@/context/Context";
 
 function page() {
+  const [totalCost, setTotalCost] = useState(0);
   const query = useSearchParams();
   const { checkoutItems } = useMainContext();
 
   const productType = query.get("product_type");
   const product = query.get("product");
+
+  useEffect(() => {
+    let total = 0;
+
+    checkoutItems.forEach((item) => {
+      if (item.discount) {
+        const totalItem = (item.price - item.discountPrice) * item.quantity;
+        total += totalItem;
+      } else {
+        const totalItem = item.price * item.quantity;
+        total += totalItem;
+      }
+    });
+
+    setTotalCost(() => total);
+  }, [checkoutItems]);
+
+  const handleOrder = () => {};
 
   return (
     <div className="main-container">
@@ -71,7 +91,7 @@ function page() {
             </div>
             <div className="d-flex">
               <p className="total-title">Total item costs</p>
-              <p className="total-digit">NGN {}</p>
+              <p className="total-digit">NGN {totalCost}</p>
             </div>
             <div className="d-flex">
               <p className="total-title">Total shipping costs</p>
@@ -81,17 +101,15 @@ function page() {
               <p className="grand-total">Grand Total</p>
               <p className="grand-total">NGN 200000.00</p>
             </div>
-            <div className="btn-container">
-              <button type="button" className="btn checkout-btn">
-                Place Order
-              </button>
+            <div className="input-group submit-btn">
+              <input type="button" value="Place order" onClick={handleOrder} />
             </div>
             <p className="disclaimer">
-              Upon clicking "Place Order", you agree to have read and abide by
-              our{" "}
+              Upon clicking <b>Place Order</b>, you agree to have read and abide
+              by our{" "}
               <Link href="/terms-and-service-policies">
-                terms and service policies{" "}
-              </Link>{" "}
+                terms and service policies
+              </Link>
             </p>
           </div>
           {/* <div className="summary-footer">

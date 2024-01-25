@@ -778,6 +778,7 @@ span.text-red {
 .total {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
 }
 .total h3 {
   font-size: 22px;
@@ -1128,6 +1129,7 @@ span.text-red {
   font-size: 14px;
   text-align: center;
   padding: 0 6px;
+  margin-top: 10px;
 }
 
 .disclaimer a {
@@ -1192,6 +1194,10 @@ span.text-red {
   cursor: pointer;
 }
 
+.submit-btn input:hover {
+  opacity: 0.8;
+}
+
 .input-group.radio {
   justify-content: center;
   width: fit-content;
@@ -1226,7 +1232,8 @@ span.text-red {
   cursor: pointer;
 }
 
-.input-group input {
+.input-group input,
+.input-group select {
   width: 100%;
   border: none;
   font-size: 14px;
@@ -1477,6 +1484,7 @@ form .user-detail {
 .address-panel {
   width: 45%;
   align-self: flex-start;
+  padding: 0 20px;
 }
 
 .address-panel .address-container {

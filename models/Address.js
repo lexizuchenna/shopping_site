@@ -36,7 +36,7 @@ const AddressSchema = new Schema(
       type: String,
       default: false,
     },
-    isDefault: {
+    "is-default": {
       type: Boolean,
       default: false,
     },

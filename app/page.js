@@ -1,7 +1,7 @@
 // import styles from "../styles/Home.module.css";
 
 import HotSales from "@/components/HotSales";
-import Categories from "@/components/Categories";
+import Categories from "@/components/category/Categories";
 import Banner from "@/components/Banner";
 
 export default function Home() {

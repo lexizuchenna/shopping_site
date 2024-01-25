@@ -37,6 +37,10 @@ const CartSchema = new Schema(
       type: Number,
       default: 0,
     },
+    "delivery-fee": {
+      type: Number,
+      default: 0,
+    },
     "store-name": {
       type: String,
       required: true,

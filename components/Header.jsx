@@ -12,7 +12,7 @@ import {
   FaShoppingCart,
 } from "react-icons/fa";
 
-import Cart from "./Cart";
+import Cart from "./cart/Cart";
 import Menu from "./Menu";
 
 import { useMainContext } from "@/context/Context";

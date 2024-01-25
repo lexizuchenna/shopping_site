@@ -14,12 +14,16 @@ const Cart = ({ setShowCart }) => {
   const cartRef = useRef();
   const router = useRouter();
 
-  const { totalAmount, cartItems } = useMainContext();
+  const { totalAmount, cartItems, checkoutItems } = useMainContext();
 
   const handleCheckout = () => {
+    if (checkoutItems.length < 1) {
+      toast.error("Select items for checkout");
+      return;
+    }
+
     setShowCart(false);
     router.push(`/checkout?product_type=checkout-items`);
-
     toast.loading("Redirecting...", {
       duration: 2000,
     });
@@ -67,14 +71,13 @@ const Cart = ({ setShowCart }) => {
               <h3>Subtotal:</h3>
               <h3>${totalAmount}</h3>
             </div>
-            <div className="btn-container">
-              <button
+            <div className="input-group submit-btn">
+              <input
                 type="button"
-                className="btn checkout-btn"
+                className=""
+                value="Proceed to Checkout"
                 onClick={handleCheckout}
-              >
-                Proceed to Checkout
-              </button>
+              />
             </div>
           </div>
         )}

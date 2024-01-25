@@ -3,7 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaAddressCard } from "react-icons/fa";
+import { HiMiniUserCircle } from "react-icons/hi2";
+import { AiFillNotification } from "react-icons/ai";
+import { BiSolidPurchaseTagAlt } from "react-icons/bi";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { MdPayment } from "react-icons/md";
 
 import { useMainContext } from "@/context/Context";
 
@@ -13,25 +18,33 @@ function RootLayout({ children }) {
   const { user } = useMainContext();
 
   const menuItems = [
-    { icon: <FaUser size={20} />, text: "Profile", link: "/account/profile" },
     {
-      icon: <FaUser size={20} />,
+      icon: <HiMiniUserCircle size={20} />,
+      text: "Profile",
+      link: "/account/profile",
+    },
+    {
+      icon: <MdPayment size={20} />,
       text: "Banks & Cards",
       link: "/account/payment",
     },
     {
-      icon: <FaUser size={20} />,
+      icon: <FaAddressCard size={20} />,
       text: "Addresses",
       link: "/account/addresses",
     },
-    { icon: <FaUser size={20} />, text: "Security", link: "/account/security" },
     {
-      icon: <FaUser size={20} />,
+      icon: <RiLockPasswordFill size={20} />,
+      text: "Security",
+      link: "/account/security",
+    },
+    {
+      icon: <BiSolidPurchaseTagAlt size={20} />,
       text: "Purchases",
       link: "/account/orders",
     },
     {
-      icon: <FaUser size={20} />,
+      icon: <AiFillNotification size={20} />,
       text: "Notifications",
       link: "/account/notifications",
     },
